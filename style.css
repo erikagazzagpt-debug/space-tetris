@@ -72,10 +72,11 @@ html, body {
   width: 90vw;
   max-width: 360px;
   aspect-ratio: 10 / 20;
+  height: auto;
+  max-height: 65vh;
   background: #0a1a3a;
   border: 3px solid white;
   display: block;
-  height: auto;
 }
 
 #controls {
