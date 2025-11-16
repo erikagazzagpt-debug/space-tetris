@@ -2,7 +2,7 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
-// Resize del canvas per mantenere proporzioni corrette
+// Resize dinamico del canvas
 function resizeCanvas() {
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
@@ -11,7 +11,6 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Logica minima per testare start e comandi
 function startGame() {
   document.getElementById('start-screen').style.display = 'none';
   document.getElementById('game-screen').style.display = 'flex';
