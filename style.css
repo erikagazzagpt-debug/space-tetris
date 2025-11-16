@@ -8,31 +8,31 @@ html, body {
   padding: 0;
   font-family: 'Courier New', monospace;
   background: black;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  height: 100dvh;
-  overflow: hidden;
+  align-items: center;
 }
 
-#main-container {
+#container {
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   padding: 10px;
-  background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') no-repeat center center;
+  background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') center center no-repeat;
   background-size: cover;
-  border-radius: 10px;
-}
-
-#start-screen, #game-screen {
-  display: none;
+  border-radius: 8px;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 
-#start-screen.active, #game-screen.active {
+/* Start screen */
+#start-screen {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #start-box {
@@ -40,7 +40,8 @@ html, body {
   border: 3px solid black;
   box-shadow: 4px 4px 0 black;
   padding: 10px;
-  width: 100%;
+  text-align: center;
+  margin-top: 20px;
 }
 
 #start-box h1 {
@@ -52,6 +53,7 @@ html, body {
   background: blue;
   color: white;
   padding: 5px;
+  font-size: 0.9em;
 }
 
 .btn {
@@ -63,32 +65,44 @@ html, body {
   cursor: pointer;
 }
 
-#scorebar, #game-title {
+/* Game screen */
+#game-screen {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#scorebar,
+#game-title {
   color: white;
+  font-size: 1em;
   margin: 5px 0;
 }
 
 #tetris {
   width: 100%;
-  max-width: 300px;
-  height: 45vh; /* Reduced from full aspect ratio */
+  max-width: 320px;
+  height: auto;
   background: #0a1a3a;
   border: 3px solid white;
-  margin: 10px 0;
+  aspect-ratio: 10 / 16; /* reduced height to keep controls visible */
 }
 
 #controls {
+  margin-top: 10px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 10px;
 }
 
 .control-btn {
   width: 50px;
   height: 50px;
-  font-size: 1.3em;
   background: white;
   border: 2px dashed black;
+  font-size: 1.4em;
 }
