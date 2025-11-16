@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Space Tetris</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="container">
+  <div id="app">
 
     <div id="start-screen">
       <h1 class="title">SPACE TETRIS</h1>
-      <button class="btn" onclick="launchGame()">START</button>
+      <button class="btn" onclick="startGame()">START</button>
     </div>
 
-    <div id="game-ui">
-      <div id="top-bar">
-        <span>Score: <span id="score">0</span></span>
-        <span>Level: <span id="level">1</span></span>
-        <span>Best: <span id="highscore">0</span></span>
+    <div id="game-screen">
+      <div id="hud">
+        <span>Score: <b id="score">0</b></span>
+        <span>Level: <b id="level">1</b></span>
+        <span>Best: <b id="best">0</b></span>
       </div>
 
-      <div id="game-wrapper">
+      <div id="game-area">
         <canvas id="tetris"></canvas>
         <canvas id="next"></canvas>
       </div>
@@ -32,13 +32,12 @@
         <button class="btn" onclick="rotatePiece()">🔄</button>
         <button class="btn" onclick="moveRight()">➡️</button>
         <button class="btn" onclick="hardDrop()">⬇️</button>
-        <button class="btn" onclick="togglePause()">⏸️</button>
+        <button class="btn" onclick="pauseGame()">⏸️</button>
       </div>
     </div>
 
   </div>
 
   <script src="game.js"></script>
-
 </body>
 </html>
