@@ -1,3 +1,15 @@
+const canvas = document.getElementById('tetris');
+const context = canvas.getContext('2d');
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
 
 const canvas = document.getElementById("tetris");
 const ctx = canvas.getContext("2d");
