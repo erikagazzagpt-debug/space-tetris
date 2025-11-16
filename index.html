@@ -3,33 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Mission Tetris</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Tetris Demo</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="container">
-    <!-- START SCREEN -->
-    <div id="start-screen">
-      <div id="start-box">
-        <div class="blue-bar">SPACE MISSION CHARGING…</div>
-        <h1>SPACE MISSION!</h1>
-        <button class="btn" onclick="startGame()">Start</button>
-      </div>
-    </div>
-
-    <!-- GAME SCREEN -->
-    <div id="game-screen" style="display: none;">
-      <div id="scorebar">Punteggio: <span id="score">0</span></div>
-      <div id="game-title">Space Mission</div>
-      <div class="canvas-wrapper">
-        <canvas id="tetris"></canvas>
-      </div>
-      <div id="controls">
-        <button class="control-btn" onclick="moveLeft()">⬅️</button>
-        <button class="control-btn" onclick="moveRight()">➡️</button>
-        <button class="control-btn" onclick="dropPiece()">⬇️</button>
-        <button class="control-btn" onclick="rotatePiece()">🔄</button>
-      </div>
+  <div id="game-container">
+    <canvas id="tetris"></canvas>
+    <div id="controls">
+      <button onclick="moveLeft()">⬅️</button>
+      <button onclick="moveRight()">➡️</button>
+      <button onclick="rotatePiece()">🔄</button>
+      <button onclick="dropPiece()">⬇️</button>
     </div>
   </div>
   <script src="game.js"></script>
