@@ -1,124 +1,88 @@
-* {
+
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  height: 100%;
+  font-family: 'Courier New', monospace;
+  background: black;
   overflow: hidden;
 }
 
-#app {
-  width: 100%;
-  max-width: 420px;
-
-  height: 90vh;               /* Altezza ridotta */
-  max-height: 720px;          /* Limite massimo PC */
-
+#start-screen, #game-screen {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  gap: 12px;
+  background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') no-repeat center center;
+  background-size: cover;
 }
 
-/* START SCREEN */
-#start-screen {
+#start-box {
+  background: lightgray;
+  border: 4px solid black;
+  box-shadow: 5px 5px 0px #000;
+  padding: 20px;
   text-align: center;
 }
 
-.title {
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  margin-bottom: 20px;
-  text-shadow: 0 0 12px #6fbaff;
+#start-box h1 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.blue-bar {
+  background: blue;
+  color: white;
+  padding: 5px;
 }
 
 .btn {
-  background: #111;
-  color: #6fbaff;
-  border: 2px solid #6fbaff;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  margin-top: 15px;
+  padding: 10px 25px;
+  font-size: 1.2em;
+  background: #ccc;
+  border: 3px solid black;
+  cursor: pointer;
 }
 
-/* GAME SCREEN */
 #game-screen {
-  width: 100%;
-  display: none;
-
   display: none;
   flex-direction: column;
-  align-items: center;
-
-  gap: 10px;
 }
 
-#hud {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
+#scorebar {
+  color: white;
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
-/* GAME AREA */
-#game-area {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-
-  flex-grow: 1;
-  align-items: center;
+#game-title {
+  color: white;
+  font-size: 1.5em;
+  margin: 10px 0;
 }
 
-/* CANVAS PERFETTAMENTE SCALABILI */
 #tetris {
-  width: 65%;
+  width: 90vw;
+  max-width: 360px;
   aspect-ratio: 10 / 20;
-
-  background: #000000dd;
-  border: 3px solid #6fbaff;
-  box-shadow: 0 0 8px #6fbaff;
+  background: #0a1a3a;
+  border: 3px solid white;
 }
 
-#next {
-  width: 25%;
-  aspect-ratio: 1 / 1;
-
-  background: #000000dd;
-  border: 3px solid #6fbaff;
-  box-shadow: 0 0 8px #6fbaff;
-}
-
-/* CONTROLLI */
 #controls {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 
-
-/* FIX: impedisce al canvas di collassare */
-#game-area {
-  min-height: 300px;        /* altezza minima PC */
-}
-
-/* Su mobile l’area deve essere più piccola ma comunque visibile */
-@media (max-width: 600px) {
-  #game-area {
-    min-height: 240px;      /* altezza minima mobile */
-  }
+.control-btn {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: 2px dashed black;
+  font-size: 1.5em;
 }
