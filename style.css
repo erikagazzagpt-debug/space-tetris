@@ -8,79 +8,40 @@ body {
   background: black;
   color: white;
   font-family: sans-serif;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   height: 100vh;
+  overflow: hidden;
 }
+
+/* --------------------------------------
+   CONTENITORE CENTRALE CON ALTEZZA LIMITATA
+--------------------------------------- */
 
 #container {
   width: 100%;
-  max-width: 450px;
-  padding: 10px;
+  max-width: 420px;
+
+  height: 90vh;            /* <--- Riduce altezza totale */
+  max-height: 750px;        /* <--- Blocca l’espansione su PC */
+
   display: flex;
   flex-direction: column;
+  justify-content: center;  /* <--- Centra verticalmente */
   align-items: center;
-}
 
-.title {
-  font-size: clamp(2rem, 10vw, 4rem);
-  margin-bottom: 20px;
-  text-shadow: 0 0 12px #6fbaff;
-}
-
-.btn {
-  background: #111;
-  color: #6fbaff;
-  border: 2px solid #6fbaff;
-  padding: 10px 20px;
-  margin: 6px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-}
-
-#start-screen {
-  text-align: center;
-}
-
-#game-ui {
-  display: none;
-  width: 100%;
-}
-
-#top-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: clamp(0.8rem, 3vw, 1.2rem);
-}
-
-#game-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  padding: 10px;
   gap: 10px;
 }
 
-#tetris {
-  width: 70%;
-  aspect-ratio: 10 / 20;
-  background: rgba(0,0,0,0.9);
-  border: 3px solid #6fbaff;
-  box-shadow: 0 0 10px #6fbaff;
-}
+/* --------------------------------------
+   START SCREEN
+--------------------------------------- */
 
-#next {
-  width: 25%;
-  aspect-ratio: 1 / 1;
-  background: rgba(0,0,0,0.9);
-  border: 3px solid #6fbaff;
-  box-shadow: 0 0 10px #6fbaff;
-}
-
-#controls {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+.title {
+  font-size: clamp(1.8rem, 8vw, 3rem);  
+  text-shadow: 0 0 10px #6fbaff;
+  margin-bo
