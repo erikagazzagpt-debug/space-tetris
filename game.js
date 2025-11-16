@@ -4,8 +4,34 @@ const ctx = canvas.getContext("2d");
 const nextCtx = nextCanvas.getContext("2d");
 
 const COLS = 10, ROWS = 20;
-const BLOCK = canvas.width / COLS;
-const NEXT_BLOCK = nextCanvas.width / 4;
+let BLOCK; 
+let NEXT_BLOCK;
+
+// Responsiveness
+function resizeGame() {
+    // Tetris deve stare dentro allo schermo senza uscire
+    const maxWidth = Math.min(window.innerWidth * 0.9, 360);
+    const height = maxWidth * 2;
+
+    canvas.style.width = maxWidth + "px";
+    canvas.style.height = height + "px";
+
+    // Impostiamo *fisicamente* la risoluzione del canvas
+    canvas.width = maxWidth;
+    canvas.height = height;
+
+    BLOCK = canvas.width / COLS;
+    NEXT_BLOCK = nextCanvas.width / 4;
+
+    draw();
+}
+
+// Detect resize events
+window.addEventListener("resize", () => {
+    resizeGame();
+});
+
+// ---------------------------------------------------
 
 const shapes = [
   { color: "#00f0f0", shape: [[1,1,1,1]] },
@@ -20,6 +46,8 @@ const shapes = [
 let grid, current, currentColor, px, py, score = 0, level = 1, dropInterval = 800;
 let dropTimer = 0, lastTime = 0, paused = false, highScore = 0;
 let nextPiece = null;
+
+// ---------------------------------------------------
 
 function initGrid() {
   grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
@@ -69,7 +97,9 @@ function draw() {
     });
   });
 
-  drawMatrix(ctx, current, px, py, BLOCK, currentColor);
+  if (current) {
+    drawMatrix(ctx, current, px, py, BLOCK, currentColor);
+  }
 }
 
 function collides(x, y, shape) {
@@ -154,6 +184,8 @@ function startGame() {
   initGrid();
   nextPiece = randomPiece();
   newPiece();
+
+  resizeGame();
   update();
 }
 
