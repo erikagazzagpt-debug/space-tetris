@@ -1,43 +1,255 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Tetris</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Space Mission Tetris</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Courier New', monospace;
+      background: black;
+      overflow: hidden;
+    }
+
+    #start-screen, #game-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') no-repeat center center;
+      background-size: cover;
+    }
+
+    #start-box {
+      background: lightgray;
+      border: 4px solid black;
+      box-shadow: 5px 5px 0px #000;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #start-box h1 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 10px 25px;
+      font-size: 1.2em;
+      background: #ccc;
+      border: 3px solid black;
+      cursor: pointer;
+    }
+
+    #game-screen {
+      display: none;
+      flex-direction: column;
+    }
+
+    #scorebar {
+      color: white;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    #game-title {
+      color: white;
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    #tetris {
+      width: 90vw;
+      max-width: 360px;
+      aspect-ratio: 10 / 20;
+      background: #0a1a3a;
+      border: 3px solid white;
+    }
+
+    #controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border: 2px dashed black;
+      font-size: 1.5em;
+    }
+  </style>
 </head>
 <body>
 
-  <div id="app">
-
-    <div id="start-screen">
-      <h1 class="title">SPACE TETRIS</h1>
-      <button class="btn" onclick="startGame()">START</button>
-    </div>
-
-    <div id="game-screen">
-      <div id="hud">
-        <span>Score: <b id="score">0</b></span>
-        <span>Level: <b id="level">1</b></span>
-        <span>Best: <b id="best">0</b></span>
-      </div>
-
-      <div id="game-area">
-        <canvas id="tetris"></canvas>
-        <canvas id="next"></canvas>
-      </div>
-
-      <div id="controls">
-        <button class="btn" onclick="moveLeft()">⬅️</button>
-        <button class="btn" onclick="rotatePiece()">🔄</button>
-        <button class="btn" onclick="moveRight()">➡️</button>
-        <button class="btn" onclick="hardDrop()">⬇️</button>
-        <button class="btn" onclick="pauseGame()">⏸️</button>
-      </div>
-    </div>
-
+<!-- START SCREEN -->
+<div id="start-screen">
+  <div id="start-box">
+    <div style="background:blue; color:white; padding:5px;">SPACE MISSION CHARGING…</div>
+    <h1>SPACE MISSION!</h1>
+    <button class="btn" onclick="startGame()">Start</button>
   </div>
+</div>
 
-  <script src="game.js"></script>
+<!-- GAME SCREEN -->
+<div id="game-screen">
+  <div id="scorebar">Punteggio: <span id="score">0</span></div>
+  <div id="game-title">Space Mission</div>
+  <canvas id="tetris" width="300" height="600"></canvas>
+  <div id="controls">
+    <button class="control-btn" onclick="moveLeft()">⬅️</button>
+    <button class="control-btn" onclick="moveRight()">➡️</button>
+    <button class="control-btn" onclick="dropPiece()">⬇️</button>
+    <button class="control-btn" onclick="rotatePiece()">🔄</button>
+  </div>
+</div>
+
+<script>
+  function startGame() {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("game-screen").style.display = "flex";
+    initGame();
+  }
+
+  const canvas = document.getElementById("tetris");
+  const ctx = canvas.getContext("2d");
+  const COLS = 10, ROWS = 20;
+  const BLOCK = canvas.width / COLS;
+  const shapes = [
+    [[1,1,1,1]], [[1,1],[1,1]], [[0,1,0],[1,1,1]],
+    [[1,0,0],[1,1,1]], [[0,0,1],[1,1,1]],
+    [[1,1,0],[0,1,1]], [[0,1,1],[1,1,0]]
+  ];
+  const colors = ["#6fbaff", "#ffcc00", "#cc33ff", "#ff6666", "#66ccff", "#66ff66", "#ff9966"];
+
+  let grid, current, px, py, score = 0;
+  let dropInterval = 600, dropTimer = 0, lastTime = 0;
+
+  function initGrid() {
+    grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+  }
+
+  function newPiece() {
+    const index = Math.floor(Math.random() * shapes.length);
+    current = {
+      shape: shapes[index],
+      color: colors[index]
+    };
+    px = 3;
+    py = 0;
+  }
+
+  function collides(x, y, shape) {
+    for (let r = 0; r < shape.length; r++) {
+      for (let c = 0; c < shape[r].length; c++) {
+        if (shape[r][c] &&
+          (grid[y + r] && grid[y + r][x + c]) !== 0) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function merge() {
+    current.shape.forEach((row, y) => {
+      row.forEach((val, x) => {
+        if (val) grid[py + y][px + x] = current.color;
+      });
+    });
+  }
+
+  function clearLines() {
+    for (let y = ROWS - 1; y >= 0; y--) {
+      if (grid[y].every(cell => cell !== 0)) {
+        grid.splice(y, 1);
+        grid.unshift(Array(COLS).fill(0));
+        score += 100;
+        document.getElementById("score").textContent = score;
+      }
+    }
+  }
+
+  function drawMatrix(matrix, offsetX, offsetY, color) {
+    matrix.forEach((row, y) => {
+      row.forEach((val, x) => {
+        if (val) {
+          ctx.fillStyle = color;
+          ctx.fillRect((offsetX + x) * BLOCK, (offsetY + y) * BLOCK, BLOCK - 1, BLOCK - 1);
+        }
+      });
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    grid.forEach((row, y) => {
+      row.forEach((val, x) => {
+        if (val) {
+          ctx.fillStyle = val;
+          ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK - 1, BLOCK - 1);
+        }
+      });
+    });
+    drawMatrix(current.shape, px, py, current.color);
+  }
+
+  function update(t = 0) {
+    const delta = t - lastTime;
+    lastTime = t;
+    dropTimer += delta;
+    if (dropTimer > dropInterval) {
+      py++;
+      if (collides(px, py, current.shape)) {
+        py--;
+        merge();
+        clearLines();
+        newPiece();
+        if (collides(px, py, current.shape)) return; // game over
+      }
+      dropTimer = 0;
+    }
+    draw();
+    requestAnimationFrame(update);
+  }
+
+  function initGame() {
+    score = 0;
+    document.getElementById("score").textContent = score;
+    dropTimer = 0;
+    lastTime = 0;
+    initGrid();
+    newPiece();
+    update();
+  }
+
+  function moveLeft() {
+    if (!collides(px - 1, py, current.shape)) px--;
+  }
+
+  function moveRight() {
+    if (!collides(px + 1, py, current.shape)) px++;
+  }
+
+  function rotatePiece() {
+    const rotated = current.shape[0].map((_, i) => current.shape.map(row => row[i])).reverse();
+    if (!collides(px, py, rotated)) current.shape = rotated;
+  }
+
+  function dropPiece() {
+    py++;
+    if (collides(px, py, current.shape)) py--;
+  }
+</script>
+
 </body>
 </html>
