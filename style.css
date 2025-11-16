@@ -149,3 +149,30 @@ canvas {
   max-width: 100%;
   height: auto;
 }
+
+/* --- FIX MOBILE TOP SPACING --- */
+
+@media (max-width: 600px) {
+
+  #start-screen {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    height: auto;
+  }
+
+  .title {
+    font-size: 14vw;    /* prima era 8vw – troppo grande su telefoni stretti */
+    margin-bottom: 3vh;
+  }
+
+  #scorebar {
+    font-size: 0.85em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #game-ui {
+    padding-top: 10px;  /* evita che il canvas venga schiacciato verso il basso */
+  }
+
+}
