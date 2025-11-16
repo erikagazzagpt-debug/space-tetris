@@ -5,43 +5,107 @@
 }
 
 body {
-  background: black;
-  color: white;
-  font-family: sans-serif;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
 
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
   overflow: hidden;
 }
 
-/* --------------------------------------
-   CONTENITORE CENTRALE CON ALTEZZA LIMITATA
---------------------------------------- */
-
-#container {
+#app {
   width: 100%;
   max-width: 420px;
 
-  height: 90vh;            /* <--- Riduce altezza totale */
-  max-height: 750px;        /* <--- Blocca l’espansione su PC */
+  height: 90vh;               /* Altezza ridotta */
+  max-height: 720px;          /* Limite massimo PC */
 
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* <--- Centra verticalmente */
+  justify-content: center;
   align-items: center;
 
-  padding: 10px;
+  gap: 12px;
+}
+
+/* START SCREEN */
+#start-screen {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px #6fbaff;
+}
+
+.btn {
+  background: #111;
+  color: #6fbaff;
+  border: 2px solid #6fbaff;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+/* GAME SCREEN */
+#game-screen {
+  width: 100%;
+  display: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   gap: 10px;
 }
 
-/* --------------------------------------
-   START SCREEN
---------------------------------------- */
+#hud {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
 
-.title {
-  font-size: clamp(1.8rem, 8vw, 3rem);  
-  text-shadow: 0 0 10px #6fbaff;
-  margin-bo
+/* GAME AREA */
+#game-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  flex-grow: 1;
+  align-items: center;
+}
+
+/* CANVAS PERFETTAMENTE SCALABILI */
+#tetris {
+  width: 65%;
+  aspect-ratio: 10 / 20;
+
+  background: #000000dd;
+  border: 3px solid #6fbaff;
+  box-shadow: 0 0 8px #6fbaff;
+}
+
+#next {
+  width: 25%;
+  aspect-ratio: 1 / 1;
+
+  background: #000000dd;
+  border: 3px solid #6fbaff;
+  box-shadow: 0 0 8px #6fbaff;
+}
+
+/* CONTROLLI */
+#controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
