@@ -1,6 +1,7 @@
 
-let canvas = document.getElementById("tetris");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("tetris");
+const ctx = canvas.getContext("2d");
+
 const COLS = 10, ROWS = 20;
 const BLOCK = canvas.width / COLS;
 const shapes = [
@@ -8,7 +9,7 @@ const shapes = [
   [[1,0,0],[1,1,1]], [[0,0,1],[1,1,1]],
   [[1,1,0],[0,1,1]], [[0,1,1],[1,1,0]]
 ];
-const colors = ["#6fbaff", "#ffcc00", "#cc33ff", "#ff6666", "#66ccff", "#66ff66", "#ff9966"];
+const colors = ["#ff6666", "#ffcc00", "#cc33ff", "#66ccff", "#66ff66", "#ff9966", "#6fbaff"];
 
 let grid, current, px, py, score = 0;
 let dropInterval = 600, dropTimer = 0, lastTime = 0;
@@ -98,7 +99,6 @@ function update(t = 0) {
       merge();
       clearLines();
       newPiece();
-      if (collides(px, py, current.shape)) return;
     }
     dropTimer = 0;
   }
