@@ -9,20 +9,20 @@ html, body {
   font-family: 'Courier New', monospace;
   background: black;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 #container {
-  width: 100%;
-  max-width: 500px;
-  margin-top: 10px;
-  padding: 10px;
+  width: 95%;
+  max-width: 600px;
+  margin-top: 20px;
+  padding: 15px;
   background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') center center no-repeat;
   background-size: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,25 +39,26 @@ html, body {
   background: lightgray;
   border: 3px solid black;
   box-shadow: 4px 4px 0 black;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
+  width: 100%;
 }
 
 #start-box h1 {
-  font-size: 1.2em;
+  font-size: 1.5em;
   margin: 10px 0;
 }
 
 .blue-bar {
   background: blue;
   color: white;
-  padding: 5px;
-  font-size: 0.9em;
+  padding: 6px;
+  font-size: 1em;
 }
 
 .btn {
-  margin-top: 10px;
-  padding: 8px 20px;
+  margin-top: 15px;
+  padding: 10px 25px;
   font-size: 1em;
   background: #ccc;
   border: 3px solid black;
@@ -69,61 +70,61 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 #scorebar,
 #game-title {
   color: white;
-  font-size: 1em;
-  margin: 4px 0;
+  font-size: 1.2em;
+  margin: 5px 0;
+}
+
+.canvas-wrapper {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 10 / 16;
+  background: #0a1a3a;
+  border: 4px solid white;
+  margin-top: 10px;
 }
 
 #tetris {
-  width: 80%;
-  max-width: 400px;
-  aspect-ratio: 10 / 16;
-  background: #0a1a3a;
-  border: 3px solid white;
-  height: auto;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
 #controls {
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
-  padding-bottom: 10px;
+  gap: 10px;
+  padding-bottom: 15px;
 }
 
 .control-btn {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   background: white;
   border: 2px dashed black;
-  font-size: 1.4em;
+  font-size: 1.5em;
 }
 
 @media (max-width: 480px) {
-  #container {
-    max-width: 100%;
-    padding: 5px;
-  }
-
   .btn {
-    font-size: 0.9em;
-    padding: 6px 12px;
+    font-size: 0.95em;
+    padding: 8px 16px;
   }
 
   .control-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2em;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3em;
   }
 
   #scorebar, #game-title {
-    font-size: 0.9em;
+    font-size: 1em;
   }
 }

@@ -2,33 +2,34 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
+// Resize del canvas per mantenere proporzioni corrette
 function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
 }
 
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// FUNZIONI DI GIOCO PLACEHOLDER (sostituire con logica di gioco vera)
+// Logica minima per testare start e comandi
 function startGame() {
   document.getElementById('start-screen').style.display = 'none';
   document.getElementById('game-screen').style.display = 'flex';
+  resizeCanvas();
 }
 
 function moveLeft() {
-  console.log("Move Left");
+  console.log("← Spostato a sinistra");
 }
 
 function moveRight() {
-  console.log("Move Right");
+  console.log("→ Spostato a destra");
 }
 
 function dropPiece() {
-  console.log("Drop Piece");
+  console.log("↓ Caduta del pezzo");
 }
 
 function rotatePiece() {
-  console.log("Rotate Piece");
+  console.log("⟳ Rotazione del pezzo");
 }
