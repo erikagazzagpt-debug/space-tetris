@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Mission Tetris</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+  <div id="start-box">
+    <div class="blue-bar">SPACE MISSION CHARGING…</div>
+    <h1>SPACE MISSION!</h1>
+    <button class="btn" onclick="startGame()">Start</button>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="game-screen">
+  <div id="scorebar">Punteggio: <span id="score">0</span></div>
+  <div id="game-title">Space Mission</div>
+  <canvas id="tetris" width="300" height="600"></canvas>
+  <div id="controls">
+    <button class="control-btn" onclick="moveLeft()">⬅️</button>
+    <button class="control-btn" onclick="moveRight()">➡️</button>
+    <button class="control-btn" onclick="dropPiece()">⬇️</button>
+    <button class="control-btn" onclick="rotatePiece()">🔄</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
