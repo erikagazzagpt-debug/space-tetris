@@ -109,3 +109,16 @@ body {
   flex-wrap: wrap;
   gap: 6px;
 }
+
+
+/* FIX: impedisce al canvas di collassare */
+#game-area {
+  min-height: 300px;        /* altezza minima PC */
+}
+
+/* Su mobile l’area deve essere più piccola ma comunque visibile */
+@media (max-width: 600px) {
+  #game-area {
+    min-height: 240px;      /* altezza minima mobile */
+  }
+}
