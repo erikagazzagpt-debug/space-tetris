@@ -172,3 +172,24 @@ function hardDrop(){
   spawn();
 }
 function pauseGame(){ }
+
+
+let lastTime = 0;
+
+function update(time = 0) {
+  const delta = time - lastTime;
+  lastTime = time;
+
+  if (delta > dropInterval) {
+    py++;
+    if (collide(px, py, current.shape)) {
+      py--;
+      merge();
+      clearLines();
+      spawn();
+    }
+  }
+
+  draw();
+  requestAnimationFrame(update);
+}
