@@ -1,17 +1,17 @@
-// CANVAS
+// ------------------------------------------------------
+//  CANVAS E SCALING
+// ------------------------------------------------------
+
 const canvas = document.getElementById("tetris");
 const nextCanvas = document.getElementById("next");
 
 const ctx = canvas.getContext("2d");
 const nextCtx = nextCanvas.getContext("2d");
 
-// DIMENSIONI TETRIS
 const COLS = 10;
 const ROWS = 20;
-
 let BLOCK = 0;
 
-// Resize responsive
 function resize() {
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
@@ -28,25 +28,22 @@ function resize() {
 window.addEventListener("resize", resize);
 
 // ------------------------------------------------------
-//     LOGICA DEL GIOCO
+//  LOGICA DI GIOCO
 // ------------------------------------------------------
 
 let grid;
-let current, next;
-
+let current, nextPiece;
 let px, py;
 
 let score = 0;
 let level = 1;
-let dropInterval = 800;   // velocità caduta
-let lastTime = 0;         // timestamp ultimo frame
+let dropInterval = 900;  // velocità discesa
+let lastTime = 0;
 
-// CREA TABELLA VUOTA
 function emptyGrid() {
   return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 }
 
-// PEZZI
 const pieces = [
   { color: "#00f0f0", shape: [[1,1,1,1]] },
   { color: "#f0f000", shape: [[1,1],[1,1]] },
@@ -64,35 +61,33 @@ function randomPiece() {
 }
 
 // ------------------------------------------------------
-//     AVVIO DEL GIOCO
+//  AVVIO GIOCO (CHIAMATO DAL BOTTONE START)
 // ------------------------------------------------------
 
 function startGame() {
   document.getElementById("start-screen").style.display = "none";
   document.getElementById("game-screen").style.display = "flex";
 
-  // Reset
   grid = emptyGrid();
   score = 0;
   level = 1;
-  dropInterval = 800;
+  dropInterval = 900;
   lastTime = 0;
 
-  // Primo pezzo
-  next = randomPiece();
+  nextPiece = randomPiece();
   spawn();
 
   resize();
-  requestAnimationFrame(update);  // <--- IMPORTANTISSIMO
+  requestAnimationFrame(update);   // <------ IMPORTANTISSIMO
 }
 
 // ------------------------------------------------------
-//     SPAWNA NUOVO PEZZO
+//  SPAWN PEZZO
 // ------------------------------------------------------
 
 function spawn() {
-  current = next;
-  next = randomPiece();
+  current = nextPiece;
+  nextPiece = randomPiece();
 
   px = 3;
   py = 0;
@@ -101,7 +96,7 @@ function spawn() {
 }
 
 // ------------------------------------------------------
-//     COLLISIONE
+//  COLLISIONE
 // ------------------------------------------------------
 
 function collide(x, y, shape) {
@@ -117,7 +112,7 @@ function collide(x, y, shape) {
 }
 
 // ------------------------------------------------------
-//     UNISCI PEZZO ALLA GRIGLIA
+//  UNIONE PEZZO CON GRIGLIA
 // ------------------------------------------------------
 
 function merge() {
@@ -129,7 +124,7 @@ function merge() {
 }
 
 // ------------------------------------------------------
-//     CANCELLA LINEE
+//  CLEAR LINEE
 // ------------------------------------------------------
 
 function clearLines() {
@@ -137,21 +132,23 @@ function clearLines() {
     if (grid[y].every(v => v)) {
       grid.splice(y, 1);
       grid.unshift(Array(COLS).fill(0));
+
       score += 100;
+
+      dropInterval = Math.max(150, dropInterval - 40);
     }
   }
 }
 
 // ------------------------------------------------------
-//     DISEGNA PEZZI
+//  DISEGNARE
 // ------------------------------------------------------
 
 function drawMatrix(context, matrix, ox, oy, b, color) {
   context.fillStyle = color;
   matrix.forEach((row, dy) =>
     row.forEach((v, dx) => {
-      if (v)
-        context.fillRect((ox+dx)*b, (oy+dy)*b, b-1, b-1);
+      if (v) context.fillRect((ox+dx)*b, (oy+dy)*b, b-1, b-1);
     })
   );
 }
@@ -159,7 +156,7 @@ function drawMatrix(context, matrix, ox, oy, b, color) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Griglia
+  // griglia
   grid.forEach((row, y) =>
     row.forEach((v, x) => {
       if (v) {
@@ -169,22 +166,19 @@ function draw() {
     })
   );
 
-  // Pezzo attuale
+  // pezzo attuale
   drawMatrix(ctx, current.shape, px, py, BLOCK, current.color);
-
-  document.getElementById("score").textContent = score;
-  document.getElementById("level").textContent = level;
 }
 
 function drawNext() {
   nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
 
   const b = nextCanvas.width / 4;
-  drawMatrix(nextCtx, next.shape, 1, 1, b, next.color);
+  drawMatrix(nextCtx, nextPiece.shape, 1, 1, b, nextPiece.color);
 }
 
 // ------------------------------------------------------
-//     UPDATE (CADUTA AUTOMATICA)
+//  LOOP DEL GIOCO (FUNZIONA AL 100%)
 // ------------------------------------------------------
 
 function update(time = 0) {
@@ -192,12 +186,14 @@ function update(time = 0) {
 
   if (delta >= dropInterval) {
     py++;
+
     if (collide(px, py, current.shape)) {
       py--;
       merge();
       clearLines();
       spawn();
     }
+
     lastTime = time;
   }
 
@@ -206,7 +202,7 @@ function update(time = 0) {
 }
 
 // ------------------------------------------------------
-//     CONTROLLI
+//  CONTROLLI
 // ------------------------------------------------------
 
 function moveLeft() {
@@ -214,15 +210,15 @@ function moveLeft() {
 }
 
 function moveRight() {
-  if (!collide(px + 1, py, current.shape)) px--;
+  if (!collide(px + 1, py, current.shape)) px++;
 }
 
 function rotatePiece() {
-  const rot = current.shape[0].map((_, i) =>
+  const rotated = current.shape[0].map((_, i) =>
     current.shape.map(row => row[i])
   ).reverse();
 
-  if (!collide(px, py, rot)) current.shape = rot;
+  if (!collide(px, py, rotated)) current.shape = rotated;
 }
 
 function hardDrop() {
