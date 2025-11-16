@@ -1,178 +1,86 @@
-html, body {
+* {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  height: 100%;
-  overflow: hidden;
+  box-sizing: border-box;
+}
+
+body {
   background: black;
   color: white;
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 3px 3px;
-  animation: stars 30s linear infinite;
-  z-index: -1;
-}
-
-@keyframes stars {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-50%, -50%); }
-}
-
-.btn {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  background: #111;
-  border: 2px solid #6fbaff;
-  border-radius: 10px;
-  color: #6fbaff;
-  transition: 0.1s;
-}
-
-.btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 12px #6fbaff;
-}
-
-#main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
 }
 
-#start-screen {
-  position: absolute;
-  inset: 0;
+#container {
+  width: 100%;
+  max-width: 450px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 10;
-  background: black;
 }
 
 .title {
-  font-size: 8vw;
-  margin-bottom: 5vh;
-  text-shadow: 0 0 10px #6fbaff;
+  font-size: clamp(2rem, 10vw, 4rem);
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px #6fbaff;
+}
+
+.btn {
+  background: #111;
+  color: #6fbaff;
+  border: 2px solid #6fbaff;
+  padding: 10px 20px;
+  margin: 6px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+#start-screen {
+  text-align: center;
 }
 
 #game-ui {
   display: none;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  max-width: 480px;
 }
 
-#game-area {
+#top-bar {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
 }
 
-canvas {
-  border: 3px solid #6fbaff;
-  box-shadow: 0 0 15px #6fbaff;
-  background: rgba(0, 0, 0, 0.9);
+#game-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 #tetris {
-  width: 90vw;
-  max-width: 300px;
-  aspect-ratio: 10/20;
+  width: 70%;
+  aspect-ratio: 10 / 20;
+  background: rgba(0,0,0,0.9);
+  border: 3px solid #6fbaff;
+  box-shadow: 0 0 10px #6fbaff;
 }
 
-.next-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10px;
+#next {
+  width: 25%;
+  aspect-ratio: 1 / 1;
+  background: rgba(0,0,0,0.9);
+  border: 3px solid #6fbaff;
+  box-shadow: 0 0 10px #6fbaff;
 }
 
-.next-label {
-  font-size: 0.9em;
-  color: #6fbaff;
-}
-
-#scorebar {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 1.1em;
-}
-
-#control-buttons {
+#controls {
   margin-top: 10px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-}
-
-@media (max-width: 600px) {
-  #tetris {
-    width: 90vw;
-    height: auto;
-  }
-
-  #next {
-    width: 12vw;
-    height: 12vw;
-  }
-
-  .btn {
-    font-size: 1em;
-    padding: 8px 14px;
-  }
-
-  #scorebar {
-    font-size: 0.95em;
-  }
-}
-
-canvas {
-  max-width: 100%;
-  height: auto;
-}
-
-/* --- FIX MOBILE TOP SPACING --- */
-
-@media (max-width: 600px) {
-
-  #start-screen {
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    height: auto;
-  }
-
-  .title {
-    font-size: 14vw;    /* prima era 8vw – troppo grande su telefoni stretti */
-    margin-bottom: 3vh;
-  }
-
-  #scorebar {
-    font-size: 0.85em;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  #game-ui {
-    padding-top: 10px;  /* evita che il canvas venga schiacciato verso il basso */
-  }
-
+  flex-wrap: wrap;
 }
