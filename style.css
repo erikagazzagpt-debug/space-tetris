@@ -58,7 +58,7 @@ body {
   width: 100%;
   display: none;
 
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
 
