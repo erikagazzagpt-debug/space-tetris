@@ -189,3 +189,24 @@ document.addEventListener('touchend', function (e) {
   }
   lastTouchEnd = now;
 }, false);
+
+function resetGame() {
+  // Reset stato gioco
+  grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+  score = 0;
+  isGameOver = false;
+
+  // Aggiorna punteggio
+  document.getElementById("score").textContent = score;
+
+  // Nascondi schermata game over se visibile
+  document.getElementById("game-over-screen").style.display = "none";
+
+  // Crea nuovo pezzo
+  spawnPiece();
+
+  // Riparti con l'animazione
+  lastTime = 0;
+  dropTimer = 0;
+  update();
+}
