@@ -57,6 +57,7 @@ html, body {
   cursor: pointer;
   font-size: 0.6em;
   text-transform: uppercase;
+  touch-action: manipulation
 }
 
 .btn:hover {
@@ -110,6 +111,7 @@ html, body {
   font-size: 1.2em;
   cursor: pointer;
   font-family: 'Press Start 2P', monospace;
+  touch-action: manipulation;
 }
 
 .control-btn:hover {
