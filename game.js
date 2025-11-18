@@ -184,7 +184,7 @@ document.addEventListener('touchstart', function (e) {
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function (e) {
   const now = new Date().getTime();
-  if (now - lastTouchEnd <= 300) {
+  if (now - lastTouchEnd <= 500) {
     e.preventDefault();
   }
   lastTouchEnd = now;
