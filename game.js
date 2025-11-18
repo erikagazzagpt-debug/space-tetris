@@ -171,3 +171,21 @@ function restartGame() {
   location.reload(); // oppure puoi creare una funzione resetGame() se non vuoi ricaricare la pagina
 }
 
+
+// DISABILITA ZOOM CON DOPPIO TOCCO
+document.addEventListener('touchstart', function (e) {
+  if (e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+
+// DISABILITA ZOOM CON DOPPIO TAP
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+  const now = new Date().getTime();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
