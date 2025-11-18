@@ -1,11 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Courier New', monospace;
-  background: black;
+  background-color: black;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #0a0a0a,
+    #0a0a0a 10px,
+    #0c0c0c 10px,
+    #0c0c0c 20px
+  );
+  font-family: 'Press Start 2P', monospace;
   overflow: hidden;
+  color: #fefefe;
 }
 
 #start-screen, #game-screen {
@@ -15,36 +24,44 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url('https://i.ibb.co/kB2YV7N/pixel-galaxy-bg.png') no-repeat center center;
-  background-size: cover;
 }
 
 #start-box {
-  background: lightgray;
-  border: 4px solid black;
-  box-shadow: 5px 5px 0px #000;
-  padding: 20px;
+  background: #000;
+  border: 2px solid #39ff14;
+  padding: 20px 30px;
+  color: #39ff14;
   text-align: center;
 }
 
 #start-box h1 {
-  font-size: 1.5em;
+  font-size: 1em;
   margin-bottom: 10px;
+  color: #ff0090;
 }
 
 .blue-bar {
-  background: blue;
-  color: white;
+  background: #ffcc00;
+  color: #000;
   padding: 5px;
+  font-size: 0.7em;
+  border: 2px solid #000;
 }
 
 .btn {
-  margin-top: 15px;
-  padding: 10px 25px;
-  font-size: 1.2em;
-  background: #ccc;
-  border: 3px solid black;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #000;
+  color: #39ff14;
+  border: 2px solid #39ff14;
   cursor: pointer;
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  background: #39ff14;
+  color: black;
 }
 
 #game-screen {
@@ -56,26 +73,23 @@ html, body {
   height: 100%;
 }
 
-#scorebar {
-  color: white;
-  font-size: 1.2em;
-  margin-top: 10px;
-}
-
-#game-title {
-  color: white;
-  font-size: 1.5em;
-  margin: 10px 0;
+#scorebar, #game-title {
+  font-size: 0.7em;
+  color: #ffcc00;
+  margin: 10px;
+  text-shadow: none;
 }
 
 #tetris {
   width: 90vw;
-  max-width: 360px;
+  max-width: 200px;
   aspect-ratio: 10 / 20;
   height: auto;
   max-height: 65vh;
-  background: #0a1a3a;
-  border: 3px solid white;
+  background: #111;
+  border: 2px solid #ff0090;
+  image-rendering: pixelated;
+  box-shadow: none;
   display: block;
 }
 
@@ -83,14 +97,53 @@ html, body {
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
 .control-btn {
   width: 50px;
   height: 50px;
-  background: white;
-  border: 2px dashed black;
-  font-size: 1.5em;
+  background: #000;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  font-size: 1.2em;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
 }
+
+.control-btn:hover {
+  background: #00ffff;
+  color: black;
+}
+
+#game-over-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#game-over-box {
+  background: #000;
+  border: 2px solid #ff0033;
+  color: #ff0033;
+  padding: 25px;
+  text-align: center;
+  max-width: 320px;
+  font-size: 0.7em;
+}
+
+#game-over-box h2 {
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+#game-over-box p {
+  font-size: 0.8em;
+  margin-bottom: 15px;
+}
+
