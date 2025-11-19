@@ -79,16 +79,49 @@ function mergePiece() {
 }
 
 function clearLines() {
+  let linesToClear = [];
+
   for (let y = ROWS - 1; y >= 0; y--) {
     if (grid[y].every(cell => cell)) {
-      grid.splice(y, 1);
-      grid.unshift(Array(COLS).fill(0));
-      score += 10;
-      document.getElementById("score").textContent = score;
-      y++;
+      linesToClear.push(y);
     }
   }
+
+  if (linesToClear.length > 0) {
+    let frame = 0;
+    const maxFrames = 6;
+
+    const dematerialize = () => {
+      linesToClear.forEach(y => {
+        for (let x = 0; x < COLS; x++) {
+          if (frame % 2 === 0) {
+            grid[y][x] = "#222"; // effetto lampeggio/dissolvenza
+          } else {
+            grid[y][x] = "#fff"; // flash alternato
+          }
+        }
+      });
+
+      drawGrid();
+      frame++;
+
+      if (frame <= maxFrames) {
+        setTimeout(dematerialize, 40); // velocità effetto
+      } else {
+        // Rimuovi righe dopo l'effetto
+        linesToClear.forEach(y => {
+          grid.splice(y, 1);
+          grid.unshift(Array(COLS).fill(0));
+          score += 10;
+        });
+        document.getElementById("score").textContent = score;
+      }
+    };
+
+    dematerialize(); // avvia animazione
+  }
 }
+
 
 function dropPiece() {
   if (!isGameOver) {
